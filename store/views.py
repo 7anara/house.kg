@@ -1,17 +1,12 @@
-from rest_framework import viewsets, generics, permissions
-
+from rest_framework import viewsets, generics
 from .models import  UserProfile, Country, Region, City, District, Property, PropertyImages, Review
 from .serializers import (UserProfileSerializer, CountryListSerializer,
                           CountryDetailSerializer, RegionListSerializer, RegionDetailSerializer,
                           CityListSerializer, CityDetailSerializer,
                           DistrictListSerializer, DistrictDetailSerializer,
-                          PropertySerializer,PropertyListSerializer, PropertyDetailSerializer,
+                          PropertyListSerializer, PropertyDetailSerializer,
                           PropertyImageSerializer, ReviewSerializer)
-from django_filters.rest_framework import DjangoFilterBackend
-from .filters import PropertyFilter
-from rest_framework.filters import SearchFilter, OrderingFilter
-from .pagination import PropertyPagination
-from .permission import CheckBuyer, CheckSeller
+
 
 class UserProfileViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
@@ -53,35 +48,9 @@ class DistrictDetailAPIView(generics.RetrieveAPIView):
     serializer_class = DistrictDetailSerializer
 
 
-class PropertyCreateAPIView(generics.CreateAPIView):
-    queryset = Property.objects.all()
-    serializer_class = PropertySerializer
-    permission_classes = [CheckSeller]
-
-
-    def get_queryset(self):
-        return Property.objects.filter(seller=self.request.user)
-
-
-class PropertyEditAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Property.objects.all()
-    serializer_class = PropertySerializer
-    permission_classes = [CheckSeller]
-
-    def get_queryset(self):
-        return Property.objects.filter(seller=self.request.user)
-
-
-
 class PropertyListAPIView(generics.ListAPIView):
     queryset = Property.objects.all()
     serializer_class = PropertyListSerializer
-    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-    filter_class = PropertyFilter
-    search_fields = ['region', 'city']
-    ordering_fields = ['price', 'area']
-    pagination_class = PropertyPagination
-
 
 class PropertyDetailAPIView(generics.RetrieveAPIView):
     queryset = Property.objects.all()
@@ -94,20 +63,3 @@ class PropertyImageViewSet(viewsets.ModelViewSet):
 class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
-
-
-
-
-class ReviewCreateAPIView(generics.CreateAPIView):
-    queryset = Review.objects.all()
-    serializer_class = ReviewSerializer
-    permission_classes = [permissions.IsAuthenticated, CheckBuyer]
-
-
-class ReviewEditAPIView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Review.objects.all()
-    serializer_class = ReviewSerializer
-    permission_classes = [permissions.IsAuthenticated, CheckBuyer]
-
-    def get_queryset(self):
-        return Review.objects.filter(user = self.request.user)
