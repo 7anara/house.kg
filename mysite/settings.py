@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -33,7 +34,6 @@ INSTALLED_APPS = [
     "rest_framework",
     "store",
     "phonenumber_field",
-<<<<<<< HEAD
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -42,9 +42,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
-=======
 
->>>>>>> c56b8b1d0b7b654250ee4ceb8a1b5335ac20c03d
 
 ]
 
@@ -145,7 +143,6 @@ MEDIA_URL = '/media/'
 
 
 AUTH_USER_MODEL = 'store.UserProfile'
-<<<<<<< HEAD
 
 
 AUTHENTICATION_BACKENDS = [
@@ -175,5 +172,4 @@ CORS_ALLOWED_ORIGINS = [
 ]
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
-=======
->>>>>>> c56b8b1d0b7b654250ee4ceb8a1b5335ac20c03d
+

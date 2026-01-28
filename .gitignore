@@ -1,7 +1,7 @@
 # Кеши Python
 pycache/
 *.pyc
-
+*.pyo
 
 # НЕ удаляем migrations, только pycache
 */migrations/pycache/
