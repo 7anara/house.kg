@@ -1,0 +1,18 @@
+# Кеши Python
+pycache/
+*.pyc
+*.pyo
+
+# НЕ удаляем migrations, только pycache
+*/migrations/pycache/
+users/migrations/
+
+# Виртуальное окружение
+venv/
+.venv/
+env/
+ENV/
+
+# Прочее
+.idea/
+.env
