@@ -25,7 +25,7 @@ class Country(models.Model):
 
 
 class Region(models.Model):
-    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    country = models.ForeignKey(Country, on_delete=models.CASCADE,related_name='regions')
     region_name = models.CharField(max_length=64)
 
 
@@ -34,7 +34,7 @@ class Region(models.Model):
 
 
 class City(models.Model):
-    region = models.ForeignKey(Region, on_delete=models.CASCADE)
+    region = models.ForeignKey(Region, on_delete=models.CASCADE, related_name='cities')
     city_name = models.CharField(max_length=64)
     city_image = models.ImageField(upload_to='city_image/', null=True, blank=True)
 
@@ -43,7 +43,7 @@ class City(models.Model):
 
 
 class District(models.Model):
-    city = models.ForeignKey(City, on_delete=models.CASCADE)
+    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='districts')
     district_name = models.CharField(max_length=64)
 
     def __str__(self):
@@ -62,9 +62,9 @@ class Property(models.Model):
          ('parking/garage', 'parking/garage     ')
     )
     property_type = models.CharField(max_length=30, choices=PROPERTY_TYPE)
-    region = models.ForeignKey(Region, on_delete=models.CASCADE)
-    city = models.ForeignKey(City, on_delete=models.CASCADE)
-    district = models.ForeignKey(District,on_delete=models.CASCADE)
+    region = models.ForeignKey(Region, on_delete=models.CASCADE, related_name='properties')
+    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='properties')
+    district = models.ForeignKey(District,on_delete=models.CASCADE, related_name='properties')
     address = models.CharField(max_length=150)
     area = models.DecimalField(max_digits=10, decimal_places=2)
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -80,14 +80,14 @@ class Property(models.Model):
     )
     condition = models.CharField(max_length=35, choices=CONDITION_TYPE)
     documents = models.BooleanField(default=True)
-    seller = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    seller = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='properties')
 
     def __str__(self):
         return self.title
 
 
 class PropertyImages(models.Model):
-    property = models.ForeignKey(Property, on_delete=models.CASCADE)
+    property = models.ForeignKey(Property, on_delete=models.CASCADE, related_name='images')
     property_image= models.ImageField(upload_to='property_image/', null=True, blank=True)
 
 
