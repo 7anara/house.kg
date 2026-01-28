@@ -81,6 +81,11 @@ class ReviewSerializer(serializers.ModelSerializer):
         model = Review
         fields = ['id', 'author', 'seller', 'rating', 'comment']
 
+class PropertySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Property
+        fields = '__all__'
+
 
 class PropertyListSerializer(serializers.ModelSerializer):
     images = PropertyImageSerializer(many=True, read_only=True)

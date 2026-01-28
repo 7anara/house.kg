@@ -33,6 +33,10 @@ INSTALLED_APPS = [
     "rest_framework",
     "store",
     "phonenumber_field",
+    'django_filters',
+    'rest_framework_swagger',
+    'drf_yasg',
+
 
 
 ]
@@ -74,9 +78,9 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        "NAME": "house_kg",
+        "NAME": "postgres",
         "USER": 'postgres',
-        'PASSWORD': 'admin',
+        'PASSWORD': '040506',
         'HOST': 'localhost',
         'PORT': 5432,
     }
